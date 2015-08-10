@@ -1,0 +1,51 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"width": 1,
+			"row": {
+				"3": 1,
+				"4": 1,
+				"5": 1
+			},
+			"col": {
+				"3": 1,
+				"4": 1,
+				"5": 1
+			},
+			"col_width": 6,
+			"widgets": [
+				{
+					"type": "mach_d3_plugin",
+					"settings": {
+						"data": "",
+						"html": "<div id=\"people-project-allocations\"><svg width=\"1560\" height=\"900\" viewBox=\"0 0 1000 500\"      preserveAspectRatio=\"xMidYMid meet\"/></div>",
+						"code": "// Expected Data:\n// https://lukaszmac.cloudant.com/scratch/_design/measurements/_search/type?q=type%3Ameasurement\nvar data = {\"total_rows\":3,\"offset\":0,\"rows\":[\n{\"id\":\"af560742c206b06290c361ee4775dc6c\",\"key\":\"af560742c206b06290c361ee4775dc6c\",\"value\":\"measurement\",\"doc\":{\"_id\":\"af560742c206b06290c361ee4775dc6c\",\"_rev\":\"1-020ed1254a2bce487ea99570897cac21\",\"type\":\"measurement\",\"dateTime\":\"2015-08-10T13:24:00.000Z\",\"values\":[0.1,0.2,0.3]}},\n{\"id\":\"af560742c206b06290c361ee47d2ff2b\",\"key\":\"af560742c206b06290c361ee47d2ff2b\",\"value\":\"measurement\",\"doc\":{\"_id\":\"af560742c206b06290c361ee47d2ff2b\",\"_rev\":\"2-642323a7a720490feb2fe9c8bd8f02ff\",\"type\":\"measurement\",\"dateTime\":\"2015-08-10T13:25:00.000Z\",\"values\":[0.2,0.2,0.2]}},\n{\"id\":\"f56d91ff577348482e8c6b542dd4c61f\",\"key\":\"f56d91ff577348482e8c6b542dd4c61f\",\"value\":\"measurement\",\"doc\":{\"_id\":\"f56d91ff577348482e8c6b542dd4c61f\",\"_rev\":\"2-740c47eefd5e74d002e8788b380c2e19\",\"type\":\"measurement\",\"dateTime\":\"2015-08-10T13:26:00.000Z\",\"values\":[0.3,0.2,0.1]}}\n]};\n\n// Get the data from the datasource:\nif (datasources[\"Measurements\"]) data = datasources[\"Measurements\"];\n\n// Define date formatting info:\n// https://github.com/mbostock/d3/wiki/Time-Formatting\nvar formatYMD = d3.time.format(\"%Y-%m-%d\");\nvar formatYM = d3.time.format(\"%Y-%m\");\nvar parseYMD = formatYMD.parse;\n//format.parse(\"2011-01-01\"); // returns a Date\n\n\nconsole.log(data);\n\n// Now we have the data to display.\n\n// DATA JOIN\n// Join new data with old elements, if any.\n//var rows = table.selectAll(\"tr.data\")\n//    .data(data.people);\n\n// UPDATE\n// Update old elements as needed.\n//rows.attr(\"class\", \"update\");\n\n// ENTER\n// Create new elements as needed.\n//  rows.enter().append(\"tr\").attr(\"class\",\"data\")\n//  \t.append(\"td\").text(function(d){ return d.Person;});\n\n\n// ENTER + UPDATE\n// Appending to the enter selection expands the update selection to include\n// entering elements; so, operations on the update selection after appending to\n// the enter selection will apply to both entering and updating nodes.\n//rows.text(function(d) { return d; });\n\n// EXIT\n// Remove old elements as needed.\n//rows.exit().remove();",
+						"sizeInBlocks": 15
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+		{
+			"name": "Measurements",
+			"type": "JSON",
+			"settings": {
+				"url": "https://lukaszmac.cloudant.com/scratch/_design/measurements/_view/measurements?include_docs=true",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET",
+				"headers": [
+					{
+						"name": "Authorization",
+						"value": "Basic dG9uZGVzZXJlbG5ldHdvbmVyeWllZHN0OnIxbFlsRnlhUm1RaXRTb1RENGpxeUVpaw=="
+					}
+				]
+			}
+		}
+	],
+	"columns": 5
+}
